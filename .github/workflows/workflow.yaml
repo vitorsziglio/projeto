@@ -41,9 +41,42 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/projetoimage:latest
 
-    - name: Deploy to Server (or another deployment step)
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+      with:
+        repository: vitorsziglio/gitopsrepo
+        token: ${{secrets.GIT_TOKEN}}
+ 
+jobs:
+  update-chart:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo 
+      uses: actions/checkout@v2
+
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.GIT_TOKEN }}
+
+    - name: Clone Repo gitops
+      run: git clone git@github.com:vitorsziglio/gitopsrepo.git
+
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    - name: Update values.yml
       run: |
-        echo "Deploying the application..."
+        sed -i 's/tag: .*/tag: ${{ github.ref }}/' gitops/values.yml
+        git config user.name "vitorsziglio"
+        git config user.email "vszgamer2608@gmail.com"
+        git commit -am "Update image tag to ${{ github.ref }}"
+        git push
+
+  # name: ArgoCD Sync
+  #    uses: argoproj/argo-cd-action@v1
+  #    with:
+  #     args: app sync <app-name>
         # Adicione seus comandos de deploy aqui, como ssh e docker pull/run no servidor de produção.
         # Por exemplo:
         # ssh user@server "docker pull ${{ secrets.DOCKER_USERNAME }}/my-fastapi-app:latest && docker run -d -p 80:80 ${{ secrets.DOCKER_USERNAME }}/my-fastapi-app:latest"
