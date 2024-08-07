@@ -68,7 +68,7 @@ jobs:
           sed -i 's/main/${{ github.sha }}/g' ./gitops/values.yaml
           git config user.name "vitorsziglio"
           git config user.email "vszgamer2608@gmail.com"
-          git add ./gitops/values.yaml
+          git add .
           git commit -m "Update image tag to ${{ github.ref }}"
           git push
 
