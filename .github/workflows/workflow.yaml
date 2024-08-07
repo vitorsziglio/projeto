@@ -55,13 +55,13 @@ jobs:
           ssh-private-key: ${{ secrets.GIT_TOKEN }}
 
       - name: Clone Repo gitops
-        run: git clone git@github.com:vitorsziglio/gitopsrepo
+        run: git clone git@github.com:vitorsziglio/gitopsrepo.git
 
       - name: Checkout repo
         uses: actions/checkout@v3
         with:
           repository: vitorsziglio/gitopsrepo
-          token: ${{secrets.GIT_TOKEN}}
+          token: ${{secrets.REPO_TOKEN}}
 
       - name: Update values.yml
         run: |
