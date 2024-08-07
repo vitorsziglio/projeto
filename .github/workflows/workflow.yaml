@@ -40,16 +40,17 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/projetoimage:latest
 
+
+
+  update-chart:
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
           repository: vitorsziglio/gitopsrepo
           token: ${{ secrets.GIT_TOKEN }}
-
-  update-chart:
-    runs-on: ubuntu-latest
-
-    steps:
+    
       - name: Checkout Repo
         uses: actions/checkout@v2
 
@@ -66,7 +67,7 @@ jobs:
 
       - name: Update values.yml
         run: |
-          sed -i 's/tag: .*/tag: ${{ github.ref }}/' gitops/values.yml
+          sed -i 's|tag: .*|tag: ${{ github.ref }}/' gitops/values.yml
           git config user.name "vitorsziglio"
           git config user.email "vszgamer2608@gmail.com"
           git commit -am "Update image tag to ${{ github.ref }}"
