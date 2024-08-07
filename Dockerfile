@@ -8,4 +8,4 @@ RUN pip install --no-cache-dir --upgrade -r /projeto/requirements.txt
 
 COPY ./app /projeto/app
 
-CMD ["uvicorn main:app --reload"]
+CMD ["cd app", "uvicorn app/main:app --reload"]
