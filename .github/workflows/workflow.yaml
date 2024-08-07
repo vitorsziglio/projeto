@@ -66,6 +66,9 @@ jobs:
       - name: Update values.yml
         run: |
           sed -i 's/main/${{ github.sha }}/g' ./gitops/values.yaml
+
+      - name: Git
+        run: |
           git config user.name "vitorsziglio"
           git config user.email "vszgamer2608@gmail.com"
           git add .
