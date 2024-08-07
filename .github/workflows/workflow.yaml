@@ -58,7 +58,10 @@ jobs:
         run: git clone git@github.com:vitorsziglio/gitopsrepo.git
 
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          repository: vitorsziglio/gitopsrepo
+          token: ${{secrets.GIT_TOKEN}}
 
       - name: Update values.yml
         run: |
