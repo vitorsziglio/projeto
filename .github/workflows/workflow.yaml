@@ -66,7 +66,7 @@ jobs:
 
       - name: Update values.yml
         run: |
-          sed -i -r "s/tag: (.*)/tag: ${{ steps.meta.outputs.tags }}/g" gitops/values.yaml
+          sed -i -r "s/tag: (.*)/tag: $TAG/g" gitops/values.yaml
 
       - name: Git
         run: |
