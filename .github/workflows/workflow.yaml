@@ -55,7 +55,7 @@ jobs:
           ssh-private-key: ${{ secrets.GIT_TOKEN }}
 
       - name: Clone Repo gitops
-        run: git clone git@github.com:vitorsziglio/gitopsrepo.git
+        run: git clone git@github.com:vitorsziglio/gitopsrepo
 
       - name: Checkout repo
         uses: actions/checkout@v3
