@@ -42,7 +42,7 @@ jobs:
 
 
 
-  update-helm:
+  update-repo:
     runs-on: ubuntu-latest
     needs: build
     steps:
